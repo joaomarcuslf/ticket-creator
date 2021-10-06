@@ -38,8 +38,7 @@ jobs:
 
       - name: Run tests 🧪
         run: |
-          GOLANG_PROTOBUF_REGISTRATION_CONFLICT=ignore
-	        go test -cover ./...
+          go test -cover ./...
 
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.12.12
