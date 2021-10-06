@@ -1,0 +1,29 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>{{.Values.title}}</title>
+  <link rel="stylesheet" type="text/css" href="/static/ticket.css" />
+</head>
+
+
+<body>
+  <div class="box">
+    <div class='inner'>
+
+      <h1>{{.Values.title}}</h1>
+
+      <div class='description clearfix'>
+        {{range $val := .Values.description}}
+            {{$val}} <br />
+        {{end}}
+      </div>
+
+      <div class='date clearfix'>
+        <h2>{{.Values.date}}</h2>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

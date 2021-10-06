@@ -1,0 +1,61 @@
+<html>
+{{template "header.tmpl.html"}}
+
+<body>
+  <section class="hero is-purple is-light is-fullheight">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-8-tablet is-7-desktop is-7-widescreen">
+            <form action="/create-ticket" method="post" class="box">
+              <div class="field">
+                <label for="" class="label has-text-left">Title</label>
+
+                <div class="control {{if .Errors.title}}has-error{{end}}">
+                  <input
+                    class="input {{if .Errors.title}}is-danger{{end}}"
+                    placeholder="e.g. You have done well"
+                    name="title"
+                    value="{{.Values.title}}"
+                  />
+                </div>
+
+                {{if .Errors.title}}
+                  <p class="help is-danger has-text-right">
+                    {{ .Errors.title }}
+                  </p>
+                {{end}}
+              </div>
+
+              <div class="field">
+                <label for="" class="label has-text-left">Description</label>
+
+                <div class="control {{if .Errors.description}}has-error{{end}}">
+                  <textarea
+                    class="textarea {{if .Errors.description}}is-danger{{end}}"
+                    placeholder="e.g. Congrats on your job"
+                    name="description"
+                  >{{.Values.description}}</textarea>
+                </div>
+
+                {{if .Errors.description}}
+                  <p class="help is-danger has-text-right">
+                    {{ .Errors.description }}
+                  </p>
+                {{end}}
+              </div>
+
+              <div class="field has-text-right">
+                <button class="button is-purple is-rounded is-medium is-fullwidth">
+                  Create
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
