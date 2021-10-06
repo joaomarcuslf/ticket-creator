@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joaomarcuslf/ticket-creator/encoders"
@@ -25,7 +26,7 @@ func GetTicket(c *gin.Context) {
 
 	decodedUrl, _ := encoders.Decode(encodedUrl)
 
-	s := strings.Split(decodedUrl, "-")
+	s := strings.Split(decodedUrl, "--|--")
 
 	description := strings.Split(s[1], "\r\n")
 
@@ -68,7 +69,7 @@ func GetTicket(c *gin.Context) {
 				"title":            s[0],
 				"description":      description,
 				"description_safe": s[1],
-				"date":             "2021-10-06",
+				"date":             s[2],
 				"short_url":        raw["short_url"],
 			},
 		},
@@ -94,8 +95,15 @@ func CreateTicket(c *gin.Context) {
 	}
 
 	if Errors["title"] == "" && Errors["description"] == "" {
+		now := time.Now()
+
 		encoded := encoders.Encode(
-			fmt.Sprintf("%v-%v", c.PostForm("title"), c.PostForm("description")),
+			fmt.Sprintf(
+				"%v--|--%v--|--%v",
+				c.PostForm("title"),
+				c.PostForm("description"),
+				now.Format("2006-01-02"),
+			),
 		)
 
 		c.Redirect(
