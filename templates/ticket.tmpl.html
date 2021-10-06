@@ -1,7 +1,32 @@
 <html>
+
 <head>
-  <meta charset="utf-8" />
   <title>{{.Values.title}}</title>
+
+  <meta charset="utf-8" />
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=6.0">
+  <meta name="robot" content="all">
+  <meta name="rating" content="general">
+  <meta name="distribution" content="global">
+  <meta name="language" content="en">
+  <meta name="robots" content="index,follow">
+
+  <meta name="theme-color" content="#5f163a">
+
+  <link rel="apple-touch-icon" href="/static/ticket-512.png">
+  <meta property="og:image" content="/static/ticket-512.png">
+
+  <meta name="description" content="{{.Values.description_safe}}">
+  <meta property="og:description_safe" content="{{.Values.description}}" />
+
+  <meta property="og:title" content="{{.Values.title}}" />
+  <meta property="twitter:title" content="{{.Values.title}}" />
+
+  <meta name="author" content="@joaomarcuslf">
+
+  <link rel="shortcut icon" href="/static/ticket-32.png" />
   <link rel="stylesheet" type="text/css" href="/static/ticket.css" />
 </head>
 
@@ -14,7 +39,7 @@
 
       <div class='description clearfix'>
         {{range $val := .Values.description}}
-            {{$val}} <br />
+        {{$val}} <br />
         {{end}}
       </div>
 
@@ -24,6 +49,15 @@
     </div>
   </div>
 
+  {{if .Values.short_url}}
+    <div class="share-section">
+      <h3>Sharable link:</h3>
+
+      <a class="link" href="{{ .Values.short_url}}">
+        {{ .Values.short_url}}
+      </a>
+    </div>
+  {{end}}
 </body>
 
 </html>

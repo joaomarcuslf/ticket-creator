@@ -1,7 +1,10 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"log"
 	"net/http"
 	"strings"
 
@@ -26,14 +29,47 @@ func GetTicket(c *gin.Context) {
 
 	description := strings.Split(s[1], "\r\n")
 
+	fmt.Println("The URL: ", c.Request.Host+c.Request.URL.Path)
+
+	requestBody := strings.NewReader(`
+	{
+		"long_url": "` + c.Request.Host + c.Request.URL.Path + `"
+	}
+	`)
+
+	// post some data
+	res, err := http.Post(
+		"https://vast-thicket-55540.herokuapp.com/create-short-url",
+		"application/json; charset=UTF-8",
+		requestBody,
+	)
+
+	// check for response error
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	data, _ := ioutil.ReadAll(res.Body)
+	res.Body.Close()
+
+	fmt.Printf("%s", data)
+
+	var raw map[string]interface{}
+
+	if err := json.Unmarshal(data, &raw); err != nil {
+		panic(err)
+	}
+
 	c.HTML(
 		http.StatusOK,
 		"ticket.tmpl.html",
 		map[string]interface{}{
 			"Values": map[string]interface{}{
-				"title":       s[0],
-				"description": description,
-				"date":        "2021-10-06",
+				"title":            s[0],
+				"description":      description,
+				"description_safe": s[1],
+				"date":             "2021-10-06",
+				"short_url":        raw["short_url"],
 			},
 		},
 	)
