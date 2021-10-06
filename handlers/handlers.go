@@ -34,7 +34,7 @@ func GetTicket(c *gin.Context) {
 
 	requestBody := strings.NewReader(`
 	{
-		"long_url": "` + "https" + c.Request.URL.Path + `"
+		"long_url": "` + "https://" + c.Request.Host + c.Request.URL.Path + `"
 	}
 	`)
 
