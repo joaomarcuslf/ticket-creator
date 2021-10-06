@@ -30,11 +30,14 @@ func GetTicket(c *gin.Context) {
 
 	description := strings.Split(s[1], "\r\n")
 
-	fmt.Println("The URL: ", c.Request.Host+c.Request.URL.Path)
+	scheme := "http"
+	if c.Request.TLS != nil {
+		scheme = "https"
+	}
 
 	requestBody := strings.NewReader(`
 	{
-		"long_url": "` + "https://" + c.Request.Host + c.Request.URL.Path + `"
+		"long_url": "` + scheme + "://" + c.Request.Host + c.Request.URL.Path + `"
 	}
 	`)
 
