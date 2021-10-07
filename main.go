@@ -4,36 +4,31 @@ import (
 	"log"
 	"os"
 
-	"github.com/gin-gonic/gin"
 	_ "github.com/heroku/x/hmetrics/onload"
-	handlers "github.com/joaomarcuslf/ticket-creator/handlers"
+	appClient "github.com/joaomarcuslf/ticket-creator/clients/app"
+	restClient "github.com/joaomarcuslf/ticket-creator/clients/rest"
 )
 
 func main() {
 	port := os.Getenv("PORT")
 
+	client := os.Getenv("CLIENT")
+
 	if port == "" {
 		log.Fatal("$PORT must be set")
 	}
 
-	router := gin.New()
+	switch client {
+	case "rest":
+		rest := restClient.NewRestClient(port)
 
-	router.Use(gin.Logger())
+		rest.Initialize()
+		break
+	case "app":
+	default:
+		app := appClient.NewAppClient(port)
 
-	router.LoadHTMLGlob("templates/*.tmpl.html")
-	router.Static("/static", "static")
-
-	router.GET("/", func(c *gin.Context) {
-		handlers.Index(c)
-	})
-
-	router.GET("/ticket/:encodedUrl", func(c *gin.Context) {
-		handlers.GetTicket(c)
-	})
-
-	router.POST("/create-ticket", func(c *gin.Context) {
-		handlers.CreateTicket(c)
-	})
-
-	router.Run(":" + port)
+		app.Initialize()
+		break
+	}
 }

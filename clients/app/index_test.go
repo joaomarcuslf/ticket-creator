@@ -1,4 +1,4 @@
-package handlers
+package app_client
 
 import (
 	"net/http"
@@ -16,10 +16,12 @@ func TestIndex(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 
 	r := gin.New()
-	r.LoadHTMLGlob("../templates/*.tmpl.html")
-	r.Static("/static", "../static")
+	r.LoadHTMLGlob("../../templates/*.tmpl.html")
+	r.Static("/static", "../../static")
 
-	r.GET("/", Index)
+	AppClient := NewAppClient("80")
+
+	r.GET("/", AppClient.Index)
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/", nil)

@@ -1,4 +1,4 @@
-package handlers
+package app_client
 
 import (
 	"net/http"
@@ -14,10 +14,12 @@ func TestCreateTicket01(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 
 	r := gin.New()
-	r.LoadHTMLGlob("../templates/*.tmpl.html")
-	r.Static("/static", "../static")
+	r.LoadHTMLGlob("../../templates/*.tmpl.html")
+	r.Static("/static", "../../static")
 
-	r.POST("/create-ticket", CreateTicket)
+	AppClient := NewAppClient("80")
+
+	r.POST("/create-ticket", AppClient.CreateTicket)
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("POST", "/create-ticket", nil)
@@ -31,16 +33,18 @@ func TestCreateTicket02(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 
 	r := gin.New()
-	r.LoadHTMLGlob("../templates/*.tmpl.html")
-	r.Static("/static", "../static")
+	r.LoadHTMLGlob("../../templates/*.tmpl.html")
+	r.Static("/static", "../../static")
 
-	r.POST("/create-ticket", CreateTicket)
+	AppClient := NewAppClient("80")
+
+	r.POST("/create-ticket", AppClient.CreateTicket)
 
 	reader := strings.NewReader("title=test&description=test")
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("POST", "/create-ticket", reader)
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Set("Content-Type", "Application/x-www-form-urlencoded")
 
 	r.ServeHTTP(w, req)
 

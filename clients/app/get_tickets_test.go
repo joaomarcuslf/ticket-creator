@@ -1,4 +1,4 @@
-package handlers
+package app_client
 
 import (
 	"net/http"
@@ -13,10 +13,12 @@ func TestGetTicket01(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 
 	r := gin.New()
-	r.LoadHTMLGlob("../templates/*.tmpl.html")
-	r.Static("/static", "../static")
+	r.LoadHTMLGlob("../../templates/*.tmpl.html")
+	r.Static("/static", "../../static")
 
-	r.GET("/ticket/aaaaaa", GetTicket)
+	AppClient := NewAppClient("80")
+
+	r.GET("/ticket/aaaaaa", AppClient.GetTicket)
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/ticket/aaaaaa", nil)
@@ -30,10 +32,12 @@ func TestGetTicket02(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 
 	r := gin.New()
-	r.LoadHTMLGlob("../templates/*.tmpl.html")
-	r.Static("/static", "../static")
+	r.LoadHTMLGlob("../../templates/*.tmpl.html")
+	r.Static("/static", "../../static")
 
-	r.GET("/ticket/:encodedUrl", GetTicket)
+	AppClient := NewAppClient("80")
+
+	r.GET("/ticket/:encodedUrl", AppClient.GetTicket)
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/ticket/VGVzdGUtLXwtLXRlc3RlLS18LS0yMDIxLTEwLTA2", nil)

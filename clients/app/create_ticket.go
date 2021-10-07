@@ -1,25 +1,24 @@
-package handlers
+package app_client
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joaomarcuslf/ticket-creator/usecases"
 )
 
-func CreateTicket(c *gin.Context) {
+func (a *AppClient) CreateTicket(c *gin.Context) {
 	c.Request.ParseForm()
 
 	title := c.PostForm("title")
 	description := c.PostForm("description")
 
-	errors := usecases.ValidateForm(
+	form := usecases.ValidateForm(
 		title,
 		description,
 	)
 
-	if errors.Ok {
+	if form.Ok {
 		encoded := usecases.EncodeTicketData(title, description)
 
 		c.Redirect(
@@ -27,14 +26,13 @@ func CreateTicket(c *gin.Context) {
 			"/ticket/"+encoded,
 		)
 	} else {
-		fmt.Print()
 		c.HTML(
 			http.StatusUnprocessableEntity,
 			"index.tmpl.html",
 			map[string]interface{}{
 				"Errors": map[string]string{
-					"title":       errors.Title,
-					"description": errors.Description,
+					"title":       form.Title,
+					"description": form.Description,
 				},
 				"Values": map[string]string{
 					"title":       title,

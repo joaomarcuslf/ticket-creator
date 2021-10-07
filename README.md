@@ -22,6 +22,40 @@ Or, you can run by doing this:
 PORT=8080 go run main.go
 ```
 
+### Using other clients
+
+This application was built to answer as 3 kinds of client.
+
+#### App
+
+This is the default, it answer HTML, like a normal webapp.
+
+To set APP mode:
+
+```sh
+PORT=8080 client=app go run main.go
+```
+
+#### Rest
+
+This is the Rest client, it answer JSON, and TBD XML.
+
+To set REST mode:
+
+```sh
+PORT=8080 client=app go run main.go
+```
+
+#### gRPC
+
+This is the gRPC client, it answer on rpc clients, like Bloomrpc.
+
+To set GRPC mode:
+
+```sh
+PORT=8080 client=grpc go run main.go
+```
+
 ## Running Tests
 
 ```sh

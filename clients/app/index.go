@@ -1,4 +1,4 @@
-package handlers
+package app_client
 
 import (
 	"net/http"
@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Index(c *gin.Context) {
+func (a *AppClient) Index(c *gin.Context) {
 	c.HTML(
 		http.StatusOK,
 		"index.tmpl.html",
