@@ -35,11 +35,10 @@ func (a *RestClient) GetTicket(c *gin.Context) {
 			http.StatusOK,
 			gin.H{
 				"values": map[string]interface{}{
-					"title":            ticket.Title,
-					"description":      ticket.Description,
-					"description_safe": ticket.SafeDescription,
-					"date":             ticket.Date,
-					"short_url":        ticket.ShortUrl,
+					"title":       ticket.Title,
+					"description": ticket.SafeDescription,
+					"date":        ticket.Date,
+					"short_url":   ticket.ShortUrl,
 				},
 			},
 		)

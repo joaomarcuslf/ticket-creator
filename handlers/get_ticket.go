@@ -32,6 +32,6 @@ func GetTicket(encodedUrl string, scheme string, host string, path string) (Tick
 		Description:     ticket.Description,
 		SafeDescription: ticket.SafeDescription,
 		Date:            ticket.Date,
-		ShortUrl:        shortUrl,
+		ShortUrl:        shortUrl.ShortUrl,
 	}, nil
 }
