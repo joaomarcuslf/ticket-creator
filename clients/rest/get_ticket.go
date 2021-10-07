@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joaomarcuslf/ticket-creator/handlers"
+	"github.com/joaomarcuslf/ticket-creator/usecases"
 )
 
 func (a *RestClient) GetTicket(c *gin.Context) {
@@ -16,7 +16,7 @@ func (a *RestClient) GetTicket(c *gin.Context) {
 		scheme = "https"
 	}
 
-	ticket, err := handlers.GetTicket(
+	ticket, err := usecases.GetTicket(
 		encodedUrl,
 		scheme,
 		c.Request.Host,

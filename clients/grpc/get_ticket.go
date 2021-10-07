@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/joaomarcuslf/ticket-creator/handlers"
 	pb "github.com/joaomarcuslf/ticket-creator/proto"
+	"github.com/joaomarcuslf/ticket-creator/usecases"
 	"google.golang.org/grpc/metadata"
 )
 
@@ -23,7 +23,7 @@ func (s *server) GetTicket(ctx context.Context, in *pb.GetTicketRequest) (*pb.Ge
 	host := md[":authority"][0]
 	path := "/ticket/" + encodedUrl
 
-	ticket, err := handlers.GetTicket(
+	ticket, err := usecases.GetTicket(
 		encodedUrl,
 		scheme,
 		host,

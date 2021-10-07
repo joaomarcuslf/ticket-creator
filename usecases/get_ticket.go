@@ -1,9 +1,7 @@
-package handlers
+package usecases
 
 import (
 	"fmt"
-
-	"github.com/joaomarcuslf/ticket-creator/usecases"
 )
 
 type TicketData struct {
@@ -15,13 +13,13 @@ type TicketData struct {
 }
 
 func GetTicket(encodedUrl string, scheme string, host string, path string) (TicketData, error) {
-	ticket, err := usecases.ExtractTicketValues(encodedUrl)
+	ticket, err := ExtractTicketValues(encodedUrl)
 
 	if err != nil {
 		return TicketData{}, fmt.Errorf("Error extracting ticket values: %s", err)
 	}
 
-	shortUrl, err := usecases.GetShortenedURL(scheme + "://" + host + path)
+	shortUrl, err := GetShortenedURL(scheme + "://" + host + path)
 
 	if err != nil {
 		return TicketData{}, fmt.Errorf("Error getting shortened url: %s", err)

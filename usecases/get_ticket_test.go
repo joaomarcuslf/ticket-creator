@@ -1,9 +1,8 @@
-package handlers
+package usecases
 
 import (
 	"testing"
 
-	"github.com/joaomarcuslf/ticket-creator/usecases"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -21,5 +20,5 @@ func TestGetTicket02(t *testing.T) {
 	assert.Equal(t, ticket.Description, []string{"test"})
 	assert.Equal(t, ticket.SafeDescription, "test")
 	assert.Equal(t, ticket.Date, "2021-10-06")
-	assert.Equal(t, ticket.ShortUrl, usecases.ShortUrl(usecases.ShortUrl{ShortUrl: "http://go-go-url-go.com/FGQiKTSj"}))
+	assert.Equal(t, ticket.ShortUrl, "http://go-go-url-go.com/FGQiKTSj")
 }
