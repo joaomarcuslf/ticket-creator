@@ -29,7 +29,7 @@ func GetShortenedURL(url string) (ShortUrl, error) {
 
 	// post some data
 	res, err := http.Post(
-		"https://vast-thicket-55540.herokuapp.com/create-short-url",
+		"hhttps://go-go-url-go.herokuapp.com/create-short-url",
 		"application/json; charset=UTF-8",
 		requestBody,
 	)
